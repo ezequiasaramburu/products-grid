@@ -17,6 +17,14 @@ class Products extends Component {
     this.getProducts(page, 40);
   };
 
+  formatDate(date) {
+    let date1 = new Date(date);
+    let date2 = new Date();
+    let timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    let dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return dayDiff > 7 ? date : dayDiff + " days ago";
+  }
+
   getProducts(page, limit) {
     const { data, extraData} = this.state;
     if(extraData.length){
@@ -64,7 +72,7 @@ class Products extends Component {
                     <td style={{ fontSize: product.size }}>{ product.face }</td>
                     <td>{ product.size }</td>
                     <td>${ product.price/100 }</td>
-                    <td>{ product.date }</td>
+                    <td>{ this.formatDate(product.date) }</td>
                   </tr>
                 )}
               })
